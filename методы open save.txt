@@ -1,0 +1,106 @@
+	public void openFile(){
+    
+	JFileChooser fc = new JFileChooser();
+	
+	int returnVal = fc.showOpenDialog(new JFrame());
+	File fileName = fc.getSelectedFile();
+
+	        FileInputStream in = null;
+
+	String text = "";
+
+        try {
+            in = new FileInputStream(fileName);
+            int c;
+          
+            while ((c = in.read()) != -1) {
+		char symbol = (char)c;
+		
+		text = text + symbol;
+            }
+	     in.close();
+        } catch(Exception xyz) {
+			System.out.println(xyz);
+		} 
+		// pad.textArea.setText(text);
+
+    }
+	
+	 public void saveFile() {
+
+	final JFileChooser fc = new JFileChooser();
+ 
+	int returnVal = fc.showSaveDialog(new JFrame());
+
+	File fileName = fc.getSelectedFile();
+
+        FileOutputStream out = null;
+	String text = pad.textArea.getText();
+
+        try {
+            out = new FileOutputStream(fileName);
+
+	    for(int i = 0; i < text.length(); i++) {
+		int code = text.charAt(i);
+			out.write(code);
+	    }
+	    out.close();              
+  } catch(Exception xyz) {
+	   System.out.println(xyz);
+	} 
+    }
+	  
+
+//System.exit(1);
+//pad.textArea.copy();
+
+   
+ public void createDocument() {
+	   String text = notepad.textArea.getText();
+
+	   boolean a = text.equals("");
+
+	   boolean b = !a;
+
+
+
+	   if(b) {
+		JFrame f = new JFrame();
+
+		Object[] options = {"Сохранить",
+                		    "Не сохранить",
+	                    "Отмена"};
+		int n = JOptionPane.showOptionDialog(f,
+		    "Вы хотите сохранить в документе"
+			 + "Безымянный?",
+			    "Блокнот",
+		    JOptionPane.YES_NO_CANCEL_OPTION,
+		    JOptionPane.QUESTION_MESSAGE,
+		    null,
+		    options,
+		    options[2]);
+
+
+		if(n == 0) {
+
+			 System.out.println("Save");
+		writeToFile();
+		} else if(n == 1){
+
+		   notepad.textArea.setText("");
+
+
+		} else if(n==2){
+			 System.out.println("Cancel");
+		} else if(n==-1){
+			 System.out.println("Close");
+
+		}
+
+	   }
+	                          
+
+    }
+
+	   System.exit(1);
+	   pad.textArea.copy();
